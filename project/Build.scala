@@ -30,6 +30,11 @@ object Build extends Build {
     Project("core", file("core"))
       .settings(coreSettings: _*)
 
+ lazy val interface: Project = 
+    Project("interface", file("interface"))
+      .settings(coreSettings: _*)
+      
+
   lazy val coreSettings =
     Seq(
       name := "curve",
