@@ -30,11 +30,6 @@ object Build extends Build {
     Project("core", file("core"))
       .settings(coreSettings: _*)
 
- lazy val interface: Project = 
-    Project("interface", file("interface"))
-      .settings(coreSettings: _*)
-      
-
   lazy val coreSettings =
     Seq(
       name := "curve",
@@ -52,6 +47,31 @@ object Build extends Build {
         "-feature"),
       libraryDependencies ++= Seq(
         "org.scalatest" %% "scalatest" % "2.2.4" % "test"
+      )
+    ) ++ defaultAssemblySettings
+
+ lazy val interface: Project = 
+    Project("interface", file("interface"))
+      .settings(interfaceSettings: _*)
+
+  lazy val interfaceSettings =
+    Seq(
+      name := "interface",
+      organization := "org.locationtech",
+      version := "0.1.0",
+      scalaVersion := "2.11.1",
+      scalacOptions ++= Seq(
+        "-deprecation",
+        "-unchecked",
+        "-Yinline-warnings",
+        "-language:implicitConversions",
+        "-language:reflectiveCalls",
+        "-language:postfixOps",
+        "-language:existentials",
+        "-feature"),
+      libraryDependencies ++= Seq(
+        "com.google.uzaygezen" %% "uzaygezen-core" % "0.2" ,
+        "org.apache.accumulo" %% "accumulo-core" % "1.6.0"
       )
     ) ++ defaultAssemblySettings
 
