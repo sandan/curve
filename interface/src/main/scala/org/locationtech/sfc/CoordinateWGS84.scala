@@ -74,11 +74,11 @@ class CoordinateWGS84(longitude: Double, latitude: Double) extends Coordinate {
   def getLongitude(){
     longitude - 180
   }
-  def getNormalLatitude(prec: Long){
+  def getNormalLatitude(prec: Long): Long = {
     CoordinateWGS84.normalizeLatitude(latitude, prec)
   }
   
-  def getNormalLongitude(prec: Long){
+  def getNormalLongitude(prec: Long): Long = {
     CoordinateWGS84.normalizeLongitude(longitude, prec)
   }
 }
