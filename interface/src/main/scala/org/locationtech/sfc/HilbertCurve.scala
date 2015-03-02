@@ -55,7 +55,7 @@ class HilbertCurve(bitsPerDimension: Int)  extends SpaceFillingCurve {
        p(i) = BitVectorFactories.OPTIMAL.apply(bitsPerDimension)
     }
 
-    val hilbert = BitVectorFactories.OPTIMAL.apply(bitsPerDimension * 2)
+    var hilbert = BitVectorFactories.OPTIMAL.apply(bitsPerDimension * 2)
     p(0).copyFrom(point.getNormalLongitude(precision))
     p(1).copyFrom(point.getNormalLatitude(precision))
 
@@ -63,9 +63,17 @@ class HilbertCurve(bitsPerDimension: Int)  extends SpaceFillingCurve {
     hilbert.toLong()
   }
   private def HilbertToPoint(hilbertValue: Long): CoordinateWGS84 = {
-   null
+    var h = BitVectorFactories.OPTIMAL.apply(bitsPerDimension*2)
+    h.copyFrom(hilbertValue)
+    var p = new Array[BitVector](2) 
+    for { i <- 0 to 1 } yield{
+      p(i) = BitVectorFactories.OPTIMAL.apply(bitsPerDimension)
+    }
+    chc.indexInverse(h,p)
+    CoordinateWGS84(p(0).toLong, p(1).toLong, precision)
   }
+
   private def rangeQuery(min: CoordinateWGS84, max: CoordinateWGS84): Array[Array[Long]] = {
-    null
+    
   } 
 }
