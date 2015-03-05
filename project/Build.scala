@@ -29,6 +29,7 @@ object Build extends Build {
   lazy val core: Project = 
     Project("core", file("core"))
       .settings(coreSettings: _*)
+      .dependsOn(interface)
 
   lazy val coreSettings =
     Seq(
@@ -70,13 +71,8 @@ object Build extends Build {
         "-language:reflectiveCalls",
         "-language:postfixOps",
         "-language:existentials",
-        "-feature"),
-      libraryDependencies ++= Seq(
-        "com.google.uzaygezen" % "uzaygezen-core" % "0.2" ,
-        "org.apache.accumulo" % "accumulo-core" % "1.6.0"
-      )
+        "-feature")
     ) ++ defaultAssemblySettings
-
 
   lazy val benchmarks: Project =
     Project("benchmarks", file("benchmarks"))

@@ -1,6 +1,7 @@
 package org.locationtech.curve.benchmarks
 
 import org.locationtech.curve.zcurve._
+import org.locationtech.sfc._
 import com.google.caliper.Param
 
 object ZCurveBenchmark extends BenchmarkRunner(classOf[ZCurveBenchmark])
@@ -61,7 +62,5 @@ class ZCurveBenchmark extends CurveBenchmark {
       x += 1
     }
   }
-
-
 
 }

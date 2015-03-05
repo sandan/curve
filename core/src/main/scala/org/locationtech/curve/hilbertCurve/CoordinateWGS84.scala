@@ -1,4 +1,4 @@
-package org.locationtech.curve
+package org.locationtech.curve.hilbertCurve
 
 /**
  * CoordinateWGS84 implementation of Coordinate.
@@ -65,15 +65,16 @@ object CoordinateWGS84 {
   /**
    *  The Coordinate class
    */
-class CoordinateWGS84(longitude: Double, latitude: Double) extends Coordinate {
+class CoordinateWGS84(longitude: Double, latitude: Double) {
 
-  def getLatitude(){
+  def getLatitude(): Double = {
     latitude - 90
   }
   
-  def getLongitude(){
+  def getLongitude(): Double = {
     longitude - 180
   }
+
   def getNormalLatitude(prec: Long): Long = {
     CoordinateWGS84.normalizeLatitude(latitude, prec)
   }
