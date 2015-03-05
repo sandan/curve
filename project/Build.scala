@@ -46,7 +46,9 @@ object Build extends Build {
         "-language:existentials",
         "-feature"),
       libraryDependencies ++= Seq(
-        "org.scalatest" %% "scalatest" % "2.2.4" % "test"
+        "org.scalatest" %% "scalatest" % "2.2.4" % "test",
+        "com.google.uzaygezen" % "uzaygezen-core" % "0.2" ,
+        "org.apache.accumulo" % "accumulo-core" % "1.6.0"
       )
     ) ++ defaultAssemblySettings
 
@@ -70,8 +72,8 @@ object Build extends Build {
         "-language:existentials",
         "-feature"),
       libraryDependencies ++= Seq(
-        "com.google.uzaygezen" %% "uzaygezen-core" % "0.2" ,
-        "org.apache.accumulo" %% "accumulo-core" % "1.6.0"
+        "com.google.uzaygezen" % "uzaygezen-core" % "0.2" ,
+        "org.apache.accumulo" % "accumulo-core" % "1.6.0"
       )
     ) ++ defaultAssemblySettings
 
