@@ -48,9 +48,8 @@ object Build extends Build {
         "-feature"),
       libraryDependencies ++= Seq(
         "org.scalatest" %% "scalatest" % "2.2.4" % "test",
-        "com.google.uzaygezen" % "uzaygezen-core" % "0.2" ,
-        "org.apache.accumulo" % "accumulo-core" % "1.6.0"
-      )
+        "com.google.uzaygezen" % "uzaygezen-core" % "0.2"
+        )
     ) ++ defaultAssemblySettings
 
  lazy val interface: Project = 
