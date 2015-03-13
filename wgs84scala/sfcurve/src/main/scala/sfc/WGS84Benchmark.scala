@@ -16,7 +16,7 @@ class WGS84Benchmark extends CurveBenchmark {
 
     while(x < 180) {
       while(y < 90) {
-        HilbertCurve(WGS84Coordinate(x),y)
+        HilbertCurve(WGS84Coordinate(x),WGS84Coordinate(y))
         y += 1
       }
       x += 1
@@ -29,11 +29,12 @@ class WGS84Benchmark extends CurveBenchmark {
       val i = 2 //resolution bits
       while (i < 24){
           val sfc = HilbertCurve(i)
-          //how to do list?
           val range = sfc.RangeQuery(WGS84Coordinate(-178.123456, -86.398493), WGSCoordinate(179.3211113, 87.393483))
           ++i
       }
 
   }
+
+  //Are we doing the error on tiling vs. coordinates?
 
 }
