@@ -4,6 +4,7 @@ import org.locationtech.curve.zcurve._
 import com.google.caliper.Param
 
 object ZCurveBenchmark extends BenchmarkRunner(classOf[ZCurveBenchmark])
+
 class ZCurveBenchmark extends CurveBenchmark {
 
   val pts = (0 until 300).toArray
@@ -65,7 +66,7 @@ class ZCurveBenchmark extends CurveBenchmark {
       x += 1
     }
   }
-  
+
   def timeZ3ZRanges(reps: Int) = run(reps)(z3ZRangesCreation)
   def z3ZRangesCreation = {
       var x = 0

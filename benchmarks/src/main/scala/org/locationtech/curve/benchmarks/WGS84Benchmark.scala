@@ -1,8 +1,8 @@
-package sfc
+package org.locationtech.curve.benchmarks
 
-
-
+import org.locationtech.curve.hilbertCurve._
 import com.google.caliper.Param
+
 
 object WGS84Benchmark extends BenchmarkRunner(classOf[WGS84Benchmark])
 
@@ -29,7 +29,7 @@ class WGS84Benchmark extends CurveBenchmark {
       val i = 2 //resolution bits
       while (i < 24){
           val sfc = HilbertCurve(i)
-          val range = sfc.RangeQuery(WGS84Coordinate(-178.123456, -86.398493), WGSCoordinate(179.3211113, 87.393483))
+          val range = sfc.RangeQuery(-178.123456, -86.398493, 179.3211113, 87.393483)
           ++i
       }
 
