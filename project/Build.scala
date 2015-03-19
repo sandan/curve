@@ -29,6 +29,7 @@ object Build extends Build {
   lazy val core: Project = 
     Project("core", file("core"))
       .settings(coreSettings: _*)
+      .dependsOn(interface)
 
   lazy val coreSettings =
     Seq(
@@ -46,10 +47,31 @@ object Build extends Build {
         "-language:existentials",
         "-feature"),
       libraryDependencies ++= Seq(
-        "org.scalatest" %% "scalatest" % "2.2.4" % "test"
-      )
+        "org.scalatest" %% "scalatest" % "2.2.4" % "test",
+        "com.google.uzaygezen" % "uzaygezen-core" % "0.2"
+        )
     ) ++ defaultAssemblySettings
 
+ lazy val interface: Project = 
+    Project("interface", file("interface"))
+      .settings(interfaceSettings: _*)
+
+  lazy val interfaceSettings =
+    Seq(
+      name := "interface",
+      organization := "org.locationtech",
+      version := "0.1.0",
+      scalaVersion := "2.11.1",
+      scalacOptions ++= Seq(
+        "-deprecation",
+        "-unchecked",
+        "-Yinline-warnings",
+        "-language:implicitConversions",
+        "-language:reflectiveCalls",
+        "-language:postfixOps",
+        "-language:existentials",
+        "-feature")
+    ) ++ defaultAssemblySettings
 
   lazy val benchmarks: Project =
     Project("benchmarks", file("benchmarks"))
