@@ -41,7 +41,6 @@ class HilbertBenchmark extends CurveBenchmark {
               }
               yrun -= 5
           }
-
           i += 1
       }
   }
