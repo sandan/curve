@@ -48,25 +48,6 @@ class ZCurveBenchmark extends CurveBenchmark {
   }
 
 
-  def timeZ3IndexCreate(reps: Int) = run(reps)(z3IndexCreation)
-  def z3IndexCreation = {
-
-    var x = 0
-    var y = 0
-    var z = 0
-
-    while(x < 200) {
-      while(y < 200) {
-        while(z < 200) {
-          Z3(pts(x), pts(y), pts(z))
-          z += 1
-        }
-        y += 1
-      }
-      x += 1
-    }
-  }
-
   def timeZ3ZRanges(reps: Int) = run(reps)(z3ZRangesCreation)
   def z3ZRangesCreation = {
       var x = 0
@@ -76,7 +57,7 @@ class ZCurveBenchmark extends CurveBenchmark {
       while(x < 100){
           while(y < 100){
               while(z < 100){
-                  var z31 = Z3(xs3(x), ys3(y), zs3(z))
+                  var z31 = Z3(xs3l(x)-100, ys3l(y)-100, zs3l(z)-100)
                   var z32 = Z3(xs3l(x), ys3l(y), zs3l(z))
                   Z3.zranges(z31, z32)
                   z += 1
