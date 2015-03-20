@@ -4,16 +4,16 @@ import org.locationtech.curve.hilbertCurve._
 import com.google.caliper.Param
 
 
-object WGS84Benchmark extends BenchmarkRunner(classOf[WGS84Benchmark])
+object HilbertBenchmark extends BenchmarkRunner(classOf[HilbertBenchmark])
 
-class WGS84Benchmark extends CurveBenchmark {
+class HilbertBenchmark extends CurveBenchmark {
 
 
-  def timeWGS84BadCase(reps: Int) = run(reps)(WGS84BadCase)
-  def WGS84BadCase = {
+  def timeHilbertBadCase(reps: Int) = run(reps)(HilbertBadCase)
+  def HilbertBadCase = {
 
       var i = 2 //resolution bits
-      while (i < 24){
+      while (i < 20){
           val sfc = HilbertCurve(i)
           val range = sfc.RangeQuery(-178.123456, -86.398493, 179.3211113, 87.393483)
           i += 1
@@ -21,9 +21,9 @@ class WGS84Benchmark extends CurveBenchmark {
 
   }
 
-  def timeWGS84CityCase(reps: Int) = run(reps)(WGS84CityCase)
-  def WGS84CityCase = {
-      var i = 2
+  def timeHilbertCityCase(reps: Int) = run(reps)(HilbertCityCase)
+  def HilbertCityCase = {
+      var i = 10
       var lx = -180
       var ly = 89.68103
       var ux = -179.597625
@@ -31,13 +31,13 @@ class WGS84Benchmark extends CurveBenchmark {
       var yrun = 0
       var xrun = 0
 
-      while (i < 10){
+      while (i < 24){
           val sfc = HilbertCurve(i)
           while((yrun + ly) > -90){
               xrun = 0
               while ((xrun + ux) < 180){
                   val range = sfc.RangeQuery(lx+xrun, ly+yrun, ux+xrun, uy+yrun)
-                  xrun += 10
+                  xrun += 5
               }
               yrun -= 5
           }
@@ -46,9 +46,9 @@ class WGS84Benchmark extends CurveBenchmark {
       }
   }
 
-  def timeWGS84StateCase(reps: Int) = run(reps)(WGS84StateCase)
-  def WGS84StateCase = {
-      var i = 2
+  def timeHilbertStateCase(reps: Int) = run(reps)(HilbertStateCase)
+  def HilbertStateCase = {
+      var i = 6
       var lx = -180
       var ly = 86.022914
       var ux = -173.078613
@@ -56,13 +56,13 @@ class WGS84Benchmark extends CurveBenchmark {
       var yrun = 0
       var xrun = 0
 
-      while (i < 10){
+      while (i < 24){
           val sfc = HilbertCurve(i)
           while ((yrun + ly) > -90){
               xrun = 0
               while((xrun + ux) < 180){
                   val range = sfc.RangeQuery(lx+xrun, ly+yrun, ux+xrun, uy+yrun)
-                  xrun += 10
+                  xrun += 5
               }
               yrun -= 5
           }
@@ -71,9 +71,9 @@ class WGS84Benchmark extends CurveBenchmark {
       }
   }
 
-  def timeWGS84CountryCase(reps: Int) = run(reps)(WGS84CountryCase)
-  def WGS84CountryCase = {
-      var i = 2
+  def timeHilbertCountryCase(reps: Int) = run(reps)(HilbertCountryCase)
+  def HilbertCountryCase = {
+      var i = 6
       var lx = -180
       var ly = 82.689749
       var ux = -171.408692
@@ -81,13 +81,13 @@ class WGS84Benchmark extends CurveBenchmark {
       var yrun = 0
       var xrun = 0
 
-      while (i < 10){
+      while (i < 24){
           val sfc = HilbertCurve(i)
           while ((yrun + ly) > -90){
               xrun = 0
               while((xrun + ux) < 180){
                   val range = sfc.RangeQuery(lx+xrun, ly+yrun, ux+xrun, uy+yrun)
-                  xrun += 10
+                  xrun += 5
               }
               yrun -= 5
           }
