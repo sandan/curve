@@ -1,4 +1,4 @@
-package org.locationtech.curve.zcurve
+package org.locationtech.sfcurve.zorder
 
 /**
  * Represents a cube in defined by min and max as two opposing points
