@@ -95,7 +95,8 @@ class HilbertCurve(bitsPerDimension: Int) extends SpaceFillingCurve {
     val itr = ranges.iterator
 
     while(itr.hasNext()) {    
-       ranges2 = Array[Long](itr.next().getIndexRange().getStart(), itr.next().getIndexRange().getEnd()) :: ranges2
+       var l = itr.next()
+       ranges2 = Array[Long](l.getIndexRange().getStart(), l.getIndexRange().getEnd()) :: ranges2
     }
     ranges2
   }
