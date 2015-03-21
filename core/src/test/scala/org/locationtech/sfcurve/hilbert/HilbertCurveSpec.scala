@@ -1,4 +1,4 @@
-package org.locationtech.curve.hilbertCurve
+package org.locationtech.sfcurve.hilbertCurve
 
 import org.scalatest._
 
