@@ -1,6 +1,4 @@
-package org.locationtech.curve.zcurve
-
-import scala.annotation._ 
+package org.locationtech.sfcurve.zorder
 
 /**
  * Represents a rectangle in defined by min and max as two opposing points

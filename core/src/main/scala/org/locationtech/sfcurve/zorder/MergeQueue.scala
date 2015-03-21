@@ -1,4 +1,4 @@
-package org.locationtech.curve.zcurve
+package org.locationtech.sfcurve.zorder
 
 class MergeQueue(initialSize: Int = 1) {
   private var array = if(initialSize <= 1) { Array.ofDim[(Long, Long)](1) } else { Array.ofDim[(Long, Long)](initialSize) }
