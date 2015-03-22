@@ -1,4 +1,4 @@
-package org.locationtech.curve.zcurve
+package org.locationtech.sfcurve.zcurve
 
 import org.scalatest._
 
