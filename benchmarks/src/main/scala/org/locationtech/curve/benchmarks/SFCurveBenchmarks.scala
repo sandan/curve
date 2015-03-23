@@ -1,7 +1,7 @@
 package org.locationtech.curve.benchmarks
 
-import org.locationtech.curve.zcurve._
-//import org.locationtech.sfc._
+import org.locationtech.sfcurve.zorder._
+
 import com.google.caliper.Param
 
 object SFCurveBenchmarks extends BenchmarkRunner(classOf[SFCurveBenchmarks])
@@ -12,15 +12,9 @@ class SFCurveBenchmarks extends CurveBenchmark {
   def timeZ2IndexCreate(reps: Int) = run(reps)(z2IndexCreation)
   def z2IndexCreation = {
 
-    var x = 0
-    var y = 0
-
-    while(x < 300) {
-      while(y < 300) {
-        Z2(pts(x), pts(y))
-        y += 1
-      }
-      x += 1
+    var res = 2
+    while(res < 24){
+        ZCurve2D(res)
     }
   }
 
@@ -42,5 +36,25 @@ class SFCurveBenchmarks extends CurveBenchmark {
       x += 1
     }
   }
+
+  def timeZ3ZRanges(reps: Int) = run(reps)(z3ZRangesCreation)
+  def z3ZRangesCreation = {
+    var x = 0
+    var y = 0
+    var z = 0
+
+    while(x < 100){
+        while(y < 100){
+            while(z < 100){
+                var z31 = Z3(xs3l(x)-100, ys3l(y)-100, zs3l(z)-100)
+                var z32 = Z3(xs3l(x), ys3l(y), zs3l(z))
+                Z3.zranges(z31, z32)
+                z += 1
+            }
+            y += 1
+        }
+        x += 1
+    }
+}
 
 }
