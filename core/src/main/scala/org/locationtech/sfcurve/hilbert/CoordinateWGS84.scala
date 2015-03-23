@@ -1,4 +1,4 @@
-package org.locationtech.curve.hilbertCurve
+package org.locationtech.sfcurve.hilbert
 
 /**
  * CoordinateWGS84 implementation of Coordinate.

@@ -1,26 +1,26 @@
-package org.locationtech.curve.hilbertCurve
+package org.locationtech.sfcurve.hilbert
 
-import com.google.common.base.Functions;
-import com.google.common.base.Function;
-import com.google.common.collect.ImmutableList;
-import com.google.uzaygezen.core.BacktrackingQueryBuilder;
-import com.google.uzaygezen.core.BitVector;
-import com.google.uzaygezen.core.BitVectorFactories;
-import com.google.uzaygezen.core.CompactHilbertCurve;
-import com.google.uzaygezen.core.FilteredIndexRange;
-import com.google.uzaygezen.core.LongContent;
-import com.google.uzaygezen.core.PlainFilterCombiner;
-import com.google.uzaygezen.core.Query;
-import com.google.uzaygezen.core.QueryBuilder;
-import com.google.uzaygezen.core.RegionInspector;
-import com.google.uzaygezen.core.SimpleRegionInspector;
-import com.google.uzaygezen.core.ZoomingSpaceVisitorAdapter;
-import com.google.uzaygezen.core.ranges.LongRange;
-import com.google.uzaygezen.core.ranges.LongRangeHome;
+import com.google.common.base.Functions
+import com.google.common.base.Function
+import com.google.common.collect.ImmutableList
+import com.google.uzaygezen.core.BacktrackingQueryBuilder
+import com.google.uzaygezen.core.BitVector
+import com.google.uzaygezen.core.BitVectorFactories
+import com.google.uzaygezen.core.CompactHilbertCurve
+import com.google.uzaygezen.core.FilteredIndexRange
+import com.google.uzaygezen.core.LongContent
+import com.google.uzaygezen.core.PlainFilterCombiner
+import com.google.uzaygezen.core.Query
+import com.google.uzaygezen.core.QueryBuilder
+import com.google.uzaygezen.core.RegionInspector
+import com.google.uzaygezen.core.SimpleRegionInspector
+import com.google.uzaygezen.core.ZoomingSpaceVisitorAdapter
+import com.google.uzaygezen.core.ranges.LongRange
+import com.google.uzaygezen.core.ranges.LongRangeHome
 
-import org.locationtech.curve.interface.SpaceFillingCurve;
+import org.locationtech.curve.interface.SpaceFillingCurve
 
-object HilbertCurve{
+object HilbertCurve {
 
  def apply(): HilbertCurve = new HilbertCurve(18)
  def apply(bitsPerDim: Int) : HilbertCurve =  new HilbertCurve(bitsPerDim)
@@ -77,7 +77,7 @@ class HilbertCurve(bitsPerDimension: Int) extends SpaceFillingCurve {
 
     var zero = new LongContent(0L)
 
-    var LR_id: Function[LongRange, LongRange] = Functions.identity();
+    var LR_id: Function[LongRange, LongRange] = Functions.identity()
 
     var inspector: RegionInspector[LongRange, LongContent] = SimpleRegionInspector.create(ImmutableList.of(region), new LongContent(1L), LR_id, LongRangeHome.INSTANCE, zero)
 

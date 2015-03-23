@@ -1,6 +1,6 @@
-package org.locationtech.curve
+package org.locationtech.sfcurve
 
-package object zcurve {
+package object zorder {
 
   /**
    * Implements the the algorithm defined in: Tropf paper to find:   

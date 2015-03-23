@@ -1,4 +1,4 @@
-package org.locationtech.curve.zcurve
+package org.locationtech.sfcurve.zorder
 
 class Z2(val z: Long) extends AnyVal {
   import Z2._
