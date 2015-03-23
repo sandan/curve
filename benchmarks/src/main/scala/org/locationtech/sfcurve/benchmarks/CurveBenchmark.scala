@@ -1,4 +1,4 @@
-package org.locationtech.curve.benchmarks
+package org.locationtech.sfcurve.benchmarks
 
 import com.google.caliper.Benchmark
 import com.google.caliper.Runner

@@ -1,6 +1,6 @@
-package org.locationtech.curve.benchmarks
+package org.locationtech.sfcurve.benchmarks
 
-import org.locationtech.curve.zcurve._
+import org.locationtech.sfcurve.zcurve._
 import org.locationtech.sfc._
 import com.google.caliper.Param
 
