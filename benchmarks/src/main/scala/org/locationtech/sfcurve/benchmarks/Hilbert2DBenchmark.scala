@@ -1,4 +1,4 @@
-package org.locationtech.curve.benchmarks
+package org.locationtech.sfcurve.benchmarks
 
 import org.locationtech.sfcurve.hilbert._
 import com.google.caliper.Param
@@ -14,7 +14,7 @@ class HilbertBenchmark extends CurveBenchmark {
 
       var i = 2 //resolution bits
       while (i < 20){
-          val sfc = HilbertCurve2D(i)
+          val sfc = new HilbertCurve2D(i)
           val range = sfc.toRanges(-178.123456, -86.398493, 179.3211113, 87.393483)
           i += 1
       }
@@ -32,7 +32,7 @@ class HilbertBenchmark extends CurveBenchmark {
       var xrun = 0
 
       while (i < 24){
-          val sfc = HilbertCurve2D(i)
+          val sfc = new HilbertCurve2D(i)
           while((yrun + ly) > -90){
               xrun = 0
               while ((xrun + ux) < 180){
@@ -56,7 +56,7 @@ class HilbertBenchmark extends CurveBenchmark {
       var xrun = 0
 
       while (i < 24){
-          val sfc = HilbertCurve2D(i)
+          val sfc = new HilbertCurve2D(i)
           while ((yrun + ly) > -90){
               xrun = 0
               while((xrun + ux) < 180){
@@ -81,7 +81,7 @@ class HilbertBenchmark extends CurveBenchmark {
       var xrun = 0
 
       while (i < 24){
-          val sfc = HilbertCurve2D(i)
+          val sfc = new HilbertCurve2D(i)
           while ((yrun + ly) > -90){
               xrun = 0
               while((xrun + ux) < 180){

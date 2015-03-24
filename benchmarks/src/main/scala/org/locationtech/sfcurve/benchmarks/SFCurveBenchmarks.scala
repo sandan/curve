@@ -1,4 +1,4 @@
-package org.locationtech.curve.benchmarks
+package org.locationtech.sfcurve.benchmarks
 
 import org.locationtech.sfcurve.zorder._
 
@@ -14,7 +14,7 @@ class SFCurveBenchmarks extends CurveBenchmark {
 
     var res = 2
     while(res < 24){
-        ZCurve2D(res)
+        new ZCurve2D(res)
     }
   }
 
