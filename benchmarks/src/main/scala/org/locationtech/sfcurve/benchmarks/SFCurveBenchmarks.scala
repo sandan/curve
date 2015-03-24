@@ -46,8 +46,8 @@ class SFCurveBenchmarks extends CurveBenchmark {
     while(x < 100){
         while(y < 100){
             while(z < 100){
-                var z31 = Z3(xs3l(x)-100, ys3l(y)-100, zs3l(z)-100)
-                var z32 = Z3(xs3l(x), ys3l(y), zs3l(z))
+                var z31 = Z3(x-100, y-100, z-100)
+                var z32 = Z3(x, y, z)
                 Z3.zranges(z31, z32)
                 z += 1
             }
