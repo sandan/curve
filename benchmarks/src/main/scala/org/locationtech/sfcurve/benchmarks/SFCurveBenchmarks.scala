@@ -15,6 +15,7 @@ class SFCurveBenchmarks extends CurveBenchmark {
     var res = 2
     while(res < 24){
         new ZCurve2D(res)
+        res += 1
     }
   }
 
