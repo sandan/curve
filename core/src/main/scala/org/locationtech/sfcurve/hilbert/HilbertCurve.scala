@@ -22,15 +22,15 @@ import org.locationtech.curve.interface.SpaceFillingCurve
 
 object HilbertCurve {
 
- def apply(): HilbertCurve = new HilbertCurve(18) 
- def apply(bitsPerDim: Int) : HilbertCurve =  new HilbertCurve(bitsPerDim) 
+ def apply(): HilbertCurve = new HilbertCurve(18)
+ def apply(bitsPerDim: Int) : HilbertCurve =  new HilbertCurve(bitsPerDim)
 
 }
 
 class HilbertCurve(bitsPerDimension: Int) extends SpaceFillingCurve {
   lazy val precision = math.pow(2, bitsPerDimension).toLong
   lazy val chc = new CompactHilbertCurve(Array(bitsPerDimension, bitsPerDimension))
-  
+
   def PointToValue(x: Double, y: Double): Long = {
     val pt = CoordinateWGS84(x,y)
     var p = new Array[BitVector](2)
@@ -52,7 +52,7 @@ class HilbertCurve(bitsPerDimension: Int) extends SpaceFillingCurve {
 
     var h = BitVectorFactories.OPTIMAL.apply(bitsPerDimension*2)
     h.copyFrom(value)
-    var p = new Array[BitVector](2) 
+    var p = new Array[BitVector](2)
 
     for { i <- 0 to 1 } yield{
       p(i) = BitVectorFactories.OPTIMAL.apply(bitsPerDimension)
@@ -62,7 +62,7 @@ class HilbertCurve(bitsPerDimension: Int) extends SpaceFillingCurve {
     val w = CoordinateWGS84(p(0).toLong, p(1).toLong, precision)
     (w.getLatitude(), w.getLongitude())
   }
- 
+
   def RangeQuery(ll_x: Double, ll_y: Double, ur_x: Double, ur_y: Double): List[Array[Long]] = {
     val min = CoordinateWGS84(ll_x,ll_y)
     val max = CoordinateWGS84(ur_x, ur_y)
@@ -80,8 +80,8 @@ class HilbertCurve(bitsPerDimension: Int) extends SpaceFillingCurve {
     var LR_id: Function[LongRange, LongRange] = Functions.identity()
 
     var inspector: RegionInspector[LongRange, LongContent] = SimpleRegionInspector.create(ImmutableList.of(region), new LongContent(1L), LR_id, LongRangeHome.INSTANCE, zero)
-   
-    var combiner: PlainFilterCombiner[LongRange, java.lang.Long, LongContent, LongRange] = new PlainFilterCombiner[LongRange, java.lang.Long, LongContent, LongRange](LongRange.of(0, 1))		
+
+    var combiner: PlainFilterCombiner[LongRange, java.lang.Long, LongContent, LongRange] = new PlainFilterCombiner[LongRange, java.lang.Long, LongContent, LongRange](LongRange.of(0, 1))
 
     var queryBuilder: QueryBuilder[LongRange, LongRange] = BacktrackingQueryBuilder.create(inspector, combiner, maxRanges, true, LongRangeHome.INSTANCE, zero)
 
@@ -94,7 +94,7 @@ class HilbertCurve(bitsPerDimension: Int) extends SpaceFillingCurve {
     var ranges2: List[Array[Long]] = List[Array[Long]]()
     val itr = ranges.iterator
 
-    while(itr.hasNext()) {    
+    while(itr.hasNext()) {
        var l = itr.next()
        ranges2 = Array[Long](l.getIndexRange().getStart(), l.getIndexRange().getEnd()) :: ranges2
     }
