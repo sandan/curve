@@ -15,6 +15,7 @@ class SFCurveBenchmarks extends CurveBenchmark {
     while(res < 24){
         new ZCurve2D(res)
         res += 1
+    }
   }
 
   def timeZ3IndexCreate(reps: Int) = run(reps)(z3IndexCreation)
