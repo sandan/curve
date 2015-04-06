@@ -10,18 +10,18 @@ class HilbertCurveSpec extends FunSpec with Matchers {
 
     it("translates (Double,Double) to Long and Long to (Double, Double)"){
       val sfc = new HilbertCurve2D(16)
-      val index: Long = sfc.toIndex(0.0,0.0)
+      val index: Long = sfc.toIndex(0.0, 0.0)
 
-      //result should be close to (0.0,0.0)
-      sfc.toPoint(index) should be < (0.0, 0.0)
-      sfc.toPoint(index) should be > (-EPSILON, -EPSILON)
+      //result should be close to (0.0,0.0) === (-180.0, -90.0)
+      sfc.toPoint(index) should be < (-180.0 + EPSILON, -90.0 + EPSILON)
+      sfc.toPoint(index) should be > (-180.0 - EPSILON, -90.0 - EPSILON)
       
     }
 
     it("implements a range query"){
 
       val sfc = new HilbertCurve2D(3)
-      val range = sfc.toRanges(-178.123456, -86.398493, 179.3211113, 87.393483)
+      val range = sfc.toRanges(1.876544, 3.601507, 179.3211113, 87.393483)
 
       range should have length 3
     }
