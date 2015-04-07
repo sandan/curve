@@ -13,10 +13,12 @@ class HilbertCurve2D(resolution: Int) extends SpaceFillingCurve2D {
   val chc = new CompactHilbertCurve(Array(resolution, resolution))
 
   final def getNormalizedLongitude(x: Double): Long = 
-    (x * (precision - 1) / 360d).toLong
+    ((x + 180) * (precision - 1) / 360d).toLong
+//    (x * (precision - 1) / 360d).toLong
 
   final def getNormalizedLatitude(y: Double): Long =
-    (y * (precision - 1) / 180d).toLong
+    ((y + 90) * (precision - 1) / 180d).toLong
+//    (y * (precision - 1) / 180d).toLong
 
   final def setNormalizedLatitude(latNormal: Long) = {
     if(!(latNormal >= 0 && latNormal <= precision))
