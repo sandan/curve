@@ -44,10 +44,10 @@ class ZCurve2D(resolution: Int) extends SpaceFillingCurve2D {
   def toRanges(xmin: Double, ymin: Double, xmax: Double, ymax: Double): Seq[(Long, Long)] = {
     val colMin = mapToCol(xmin)
     val rowMin = mapToRow(ymin)
-    val min = Z2(colMin, rowMin)
+    val min = Z2(rowMin, colMin)
     val colMax = mapToCol(xmax)
     val rowMax = mapToRow(ymax)
-    val max = Z2(colMax, rowMax)
+    val max = Z2(rowMax, colMax)
 
     Z2.zranges(min, max)
   }
