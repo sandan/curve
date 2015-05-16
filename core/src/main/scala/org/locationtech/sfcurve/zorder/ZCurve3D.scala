@@ -9,15 +9,8 @@ import com.github.nscala_time.time.Imports._
  * Should we keep time as a third dimension ? How do we abstract additional dimensions?
  * Should we just use the CompactHilbertCurve's representation for time (normalized)?
  */
-object ZCurve3D {
-  def apply(timeToGrid: DateTime => Int): KeyIndex[SpaceTimeKey] =
-    new ZCurve3D(timeToGrid)
 
-  def byYear(): ZSpaceTimeKeyIndex = 
-    new ZCurve3D({ dt => dt.getYear })
-}
-
-class ZCurve3D(resolution: Int, timeToGrid: DateTime => Int) extends SpaceFilingCurve3D {
+class ZCurve3D(resolution: Int, timeToGrid: DateTime => Int) extends SpaceFillingCurve3D {
 
   // We are assuming Lat Lng extent for the whole world
   // We assume that -180<= x <= 180 and -90 <= y <= 90
@@ -55,6 +48,6 @@ class ZCurve3D(resolution: Int, timeToGrid: DateTime => Int) extends SpaceFiling
 
   def toRanges(xmin: Double, ymin: Double, zmin: DateTime,
                xmax: Double, ymax: Double, zmax: DateTime): Seq[(Long, Long)] =
-    Z3.zranges(toZ(mapToCol(xmin), mapToRow(ymax), zmin 
-                   mapToCol(xmax), mapToRow(ymin), zmax))
+    Z3.zranges(toZ(mapToCol(xmin), mapToRow(ymax), zmin), 
+               toZ(mapToCol(xmax), mapToRow(ymin), zmax))
 }
