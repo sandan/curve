@@ -1,60 +1,65 @@
 package org.locationtech.sfcurve.benchmarks
 
 import org.locationtech.sfcurve.zorder._
+import org.locationtech.sfcurve.rowmajor._
+import org.locationtech.sfcurve.hilbert._
+
+import org.eichelberger.sfc.ZCurve
+import org.eichelberger.sfc.CompactHilbertCurve
+import org.eichelberger.sfc.RowMajorCurve
+import org.eichelberger.sfc.SpaceFillingCurve.{OrdinalVector, SpaceFillingCurve}
+
 import com.google.caliper.Param
 
 object SFCurveBenchmarks extends BenchmarkRunner(classOf[SFCurveBenchmarks])
 class SFCurveBenchmarks extends CurveBenchmark {
 
-  val pts = (0 until 300).toArray
+  val resolution = 128
 
-  def timeZ2IndexCreate(reps: Int) = run(reps)(z2IndexCreation)
-  def z2IndexCreation = {
+  //time creation for sfcurves
 
-    var res = 2
-    while(res < 24){
+  def timeZ2DCreate(reps: Int) = run(reps)(z2DCreation)
+  def z2DCreation = {
+      for (res <- 1 until resolution){
         new ZCurve2D(res)
-        res += 1
-    }
-  }
-
-  def timeZ3IndexCreate(reps: Int) = run(reps)(z3IndexCreation)
-  def z3IndexCreation = {
-
-    var x = 0
-    var y = 0
-    var z = 0
-
-    while(x < 200) {
-      while(y < 200) {
-        while(z < 200) {
-          Z3(pts(x), pts(y), pts(z))
-          z += 1
-        }
-        y += 1
       }
-      x += 1
-    }
   }
 
-  def timeZ3ZRanges(reps: Int) = run(reps)(z3ZRangesCreation)
-  def z3ZRangesCreation = {
-    var x = 0
-    var y = 0
-    var z = 0
+  def timeHilbert2DCreate(reps: Int) = run(reps)(h2DCreation)
+  def h2DCreation = {
+      for (res <- 1 until resolution){
+        new HilbertCurve2D(res)
+      }
+  }
 
-    while(x < 100){
-        while(y < 100){
-            while(z < 100){
-                var z31 = Z3(x-100, y-100, z-100)
-                var z32 = Z3(x, y, z)
-                Z3.zranges(z31, z32)
-                z += 1
-            }
-            y += 1
-        }
-        x += 1
-    }
-}
+  def timeRowMajor2DCreate(reps: Int) = run(reps)(rm2DCreation)
+  def rm2DCreation = {
+      for (res <- 1 until resolution){
+        new RowMajorCurve2D(res)
+      }
+  }
+
+  //time creation for sfseize
+
+  def timeZ2DSFCreate(reps: Int) = run(reps)(z2DSFCreation)
+  def z2DSFCreation = {
+      for (res <- 1 until resolution){
+        new ZCurve(OrdinalVector(res,res))
+      }
+  }
+
+  def timeHilbert2DSFCreate(reps: Int) = run(reps)(h2DSFCreation)
+  def h2DSFCreation = {
+      for (res <- 1 until resolution){
+        new CompactHilbertCurve(OrdinalVector(res,res))
+      }
+  }
+
+  def timeRowMajor2DSFCreate(reps: Int) = run(reps)(rm2DSFCreation)
+  def rm2DSFCreation = {
+      for (res <- 1 until resolution){
+        new RowMajorCurve(OrdinalVector(res,res))
+      }
+  }
 
 }
