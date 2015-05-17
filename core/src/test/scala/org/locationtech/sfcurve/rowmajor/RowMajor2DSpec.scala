@@ -9,7 +9,7 @@ class RowMajorCurve2DSpec extends FunSpec with Matchers {
 
   describe("RowMajorCurve2D Test") {
 
-    it("implements a range query"){
+    it("implements a range query 3x3"){
       //3x3 grid
       val res = 2
       val sfc = new RowMajorCurve2D(res)
@@ -18,6 +18,16 @@ class RowMajorCurve2DSpec extends FunSpec with Matchers {
       range(1) should be((3,6))
       range(2) should be((6,9))
     }
+
+    it("implements a range query 4x4"){
+      //4x4 grid
+      val res = 3
+      val sfc = new RowMajorCurve2D(res)
+      val range = sfc.toRanges(60,0,180,90)
+      //val range = sfc.toRanges(-90,-45,90,45)
+      //val range = sfc.toRanges(-180,-90,180,90)
+      println(range)
+    } 
 
 
     it("Converts Point (Double, Double) to a Long value"){
