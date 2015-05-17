@@ -47,7 +47,11 @@ object Build extends Build {
         "-feature"),
       libraryDependencies ++= Seq(
         "org.scalatest" %% "scalatest" % "2.2.4" % "test",
-        "com.google.uzaygezen" % "uzaygezen-core" % "0.2"
+        "com.google.uzaygezen" % "uzaygezen-core" % "0.2",
+        "org.slf4j" % "slf4j-api" % "1.7.10",
+        "com.github.nscala-time" %% "nscala-time" % "1.6.0",
+        "org.spire-math" %% "spire" % "0.7.5",
+        "com.typesafe.scala-logging" % "scala-logging-slf4j_2.11" % "2.1.2"
         )
     ) ++ defaultAssemblySettings
 
@@ -79,6 +83,9 @@ object Build extends Build {
         "-language:existentials",
         "-feature"),
       libraryDependencies ++= Seq(
+        "org.scalatest" %% "scalatest" % "2.2.4" % "test", 
+        "org.slf4j" % "slf4j-api" % "1.7.10",
+        "com.typesafe.scala-logging" % "scala-logging-slf4j_2.11" % "2.1.2",
         "com.google.code.caliper" % "caliper" % "1.0-SNAPSHOT" from "http://plastic-idolatry.com/jars/caliper-1.0-SNAPSHOT.jar",
         "com.google.guava" % "guava" % "r09",
         "com.google.code.java-allocation-instrumenter" % "java-allocation-instrumenter" % "2.0",
