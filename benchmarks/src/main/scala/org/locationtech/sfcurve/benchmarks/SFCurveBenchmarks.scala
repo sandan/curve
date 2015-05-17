@@ -14,14 +14,14 @@ import com.google.caliper.Param
 object SFCurveBenchmarks extends BenchmarkRunner(classOf[SFCurveBenchmarks])
 class SFCurveBenchmarks extends CurveBenchmark {
 
-  val resolution = 128
+  val resolution = 8
 
   //time creation for sfcurves
 
   def timeZ2DCreate(reps: Int) = run(reps)(z2DCreation)
   def z2DCreation = {
       for (res <- 1 until resolution){
-        new ZCurve2D(res)
+        new ZCurve2D(Math.pow(2,res).toInt)
       }
   }
 
@@ -35,7 +35,7 @@ class SFCurveBenchmarks extends CurveBenchmark {
   def timeRowMajor2DCreate(reps: Int) = run(reps)(rm2DCreation)
   def rm2DCreation = {
       for (res <- 1 until resolution){
-        new RowMajorCurve2D(res)
+        new RowMajorCurve2D(Math.pow(2,res).toInt)
       }
   }
 
