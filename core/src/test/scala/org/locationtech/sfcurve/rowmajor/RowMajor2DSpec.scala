@@ -23,10 +23,11 @@ class RowMajorCurve2DSpec extends FunSpec with Matchers {
       //4x4 grid
       val res = 3
       val sfc = new RowMajorCurve2D(res)
-      val range = sfc.toRanges(60,0,180,90)
-      //val range = sfc.toRanges(-90,-45,90,45)
-      //val range = sfc.toRanges(-180,-90,180,90)
-      println(range)
+      val range = sfc.toRanges(60,0,180,90) //uper right quadrant
+      
+      range(0) should be((2,4))
+      range(1) should be((6,8))
+      range.size should be(2)
     } 
 
 
