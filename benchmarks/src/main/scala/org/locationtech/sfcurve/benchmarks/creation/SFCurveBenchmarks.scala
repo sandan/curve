@@ -20,7 +20,7 @@ class SFCurveBenchmarks extends CurveBenchmark {
   val res = 10
 
   //time creation for sfcurves
-  def timeZ2DCreate2(reps: Int) = run(reps)(z2DCreation)
+  def timeZ2DCreate(reps: Int) = run(reps)(z2DCreation)
   def z2DCreation = {
         new ZCurve2D(Math.pow(2,res).toInt)
   }
@@ -62,4 +62,27 @@ class SFCurveBenchmarks extends CurveBenchmark {
         )
        )
   }
+
+  def timeZ2DSFComposedCreate(reps: Int) = run(reps)(z2DSFComposedCreation)
+  def z2DSFComposedCreation = {
+        new ComposedCurve(
+        new ZCurve(OrdinalVector(res,res)),
+        Seq(
+         DefaultDimensions.createLongitude(res),
+         DefaultDimensions.createLatitude(res)
+        )
+       )
+  }
+
+  def timeHilbert2DSFComposedCreate(reps: Int) = run(reps)(h2DSFComposedCreation)
+  def h2DSFComposedCreation = {
+        new ComposedCurve(
+        new CompactHilbertCurve(OrdinalVector(res,res)),
+        Seq(
+         DefaultDimensions.createLongitude(res),
+         DefaultDimensions.createLatitude(res)
+        )
+       )
+  }
+
 }
