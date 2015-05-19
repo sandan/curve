@@ -54,6 +54,9 @@ To run the benchmarks, drop into the benchmark subproject using the `project` co
 ```
 curve > project benchmarks
 benchmarks > run
+```
 Note: you can run the benchmarks on various resolutions by specifying them in the res variable as follows:
+
+```
 benchmarks > run -Dres=2,4,6,8,10
 ```
