@@ -2,8 +2,13 @@ package org.locationtech.sfcurve.benchmarks
 
 import org.locationtech.sfcurve.rowmajor._
 import com.google.caliper.Param
-import org.eichelberger.sfc.RowMajorCurve
+
+import org.eichelberger.sfc._
+import org.eichelberger.sfc.Dimensions._
 import org.eichelberger.sfc.SpaceFillingCurve._
+import org.joda.time.{DateTimeZone, DateTime}
+
+import org.joda.time.Days
 
 /**
  * benchmarks for counting range queries for various static bounding boxes and resolutions
@@ -13,8 +18,6 @@ class RowMajorCurve2DRangeQueryBenchmark extends CurveBenchmark {
    
   val res = 8 //max res
   val sfc = new RowMajorCurve2D(Math.pow(2,res).toInt)
-  val sfrm2D = new RowMajorCurve(OrdinalVector(res,res))
-
 
   //UR
   def timeRowMajorCurve2DQuadrantUR(reps: Int) = run(reps)(RowMajorCurve2DQuadrantUR)
@@ -40,50 +43,57 @@ class RowMajorCurve2DRangeQueryBenchmark extends CurveBenchmark {
           sfc.toRanges(0.0, -90.0, 180.0, 0.0)
   }
 
-
-
-  //queries are a function of resolution
-  val numtiles = (Math.pow(2,res) * Math.pow(2,res)).toInt
-  val center = (Math.pow(2,res)/2).toInt
-  val end = (2 * center) - 1 //0 indexed square grid
-  val URQuery = Query(Seq(
-                 OrdinalRanges(OrdinalPair(center,end)),
-                 OrdinalRanges(OrdinalPair(center,end))))
-
-  val ULQuery = Query(Seq(
-                 OrdinalRanges(OrdinalPair(0,center)),
-                 OrdinalRanges(OrdinalPair(center,end))))
-
-  val LRQuery = Query(Seq(
-                 OrdinalRanges(OrdinalPair(center,end)),
-                 OrdinalRanges(OrdinalPair(0,center))))
-
-  val LLQuery = Query(Seq(
-                 OrdinalRanges(OrdinalPair(0,center)),
-                 OrdinalRanges(OrdinalPair(0,center))))
-
   //sfseize
+
+  val x = DefaultDimensions.createLongitude(res)  
+  val y = DefaultDimensions.createLatitude(res)   
+
+  val sfrm2D = new ComposedCurve(
+                    new RowMajorCurve(OrdinalVector(res,res)),
+                    Seq(x, y))
+               
+  //UR
+  val URquery = Cell(Seq(
+    DefaultDimensions.createDimension("x", 0.0, 180.0, 0),
+    DefaultDimensions.createDimension("y", 0.0, 90.0, 0)
+  ))
+
   def timeRowMajorCurve2DQuadrantsfUR(reps: Int) = run(reps)(RowMajorCurve2DQuadrantsfUR)
   def RowMajorCurve2DQuadrantsfUR = {
-          sfrm2D.getRangesCoveringQuery(URQuery)
+          sfrm2D.getRangesCoveringCell(URquery)
   }
 
   //LL
+  val LLquery = Cell(Seq(
+    DefaultDimensions.createDimension("x", -180.0, 0.0, 0),
+    DefaultDimensions.createDimension("y", -90.0, 0.0, 0)
+  ))
+
   def timeRowMajorCurve2DQuadrantsfLL(reps: Int) = run(reps)(RowMajorCurve2DQuadrantsfLL)
   def RowMajorCurve2DQuadrantsfLL = {
-          sfrm2D.getRangesCoveringQuery(LLQuery)
+          sfrm2D.getRangesCoveringCell(LLquery)
   }
 
   //UL
+  val ULquery = Cell(Seq(
+    DefaultDimensions.createDimension("x", -180.0, 0.0, 0),
+    DefaultDimensions.createDimension("y", 0.0, 90.0, 0)
+  ))
+
   def timeRowMajorCurve2DQuadrantsfUL(reps: Int) = run(reps)(RowMajorCurve2DQuadrantsfUL)
   def RowMajorCurve2DQuadrantsfUL = {
-          sfrm2D.getRangesCoveringQuery(ULQuery)
+          sfrm2D.getRangesCoveringCell(ULquery)
   }
 
   //LR
+  val LRquery = Cell(Seq(
+    DefaultDimensions.createDimension("x", 0.0, 180.0, 0),
+    DefaultDimensions.createDimension("y", -90.0, 0.0, 0)
+  ))
+
   def timeRowMajorCurve2DQuadrantsfLR(reps: Int) = run(reps)(RowMajorCurve2DQuadrantsfLR)
   def RowMajorCurve2DQuadrantsfLR = {
-          sfrm2D.getRangesCoveringQuery(LRQuery)
+          sfrm2D.getRangesCoveringCell(LRquery)
   }
 
 }
