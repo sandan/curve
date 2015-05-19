@@ -6,7 +6,6 @@ import com.google.caliper.Param
 import org.eichelberger.sfc._
 import org.eichelberger.sfc.Dimensions._
 import org.eichelberger.sfc.SpaceFillingCurve._
-import org.joda.time.{DateTimeZone, DateTime}
 
 import org.joda.time.Days
 

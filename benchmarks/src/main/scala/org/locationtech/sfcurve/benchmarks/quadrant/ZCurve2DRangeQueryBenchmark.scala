@@ -2,8 +2,10 @@ package org.locationtech.sfcurve.benchmarks
 
 import org.locationtech.sfcurve.zorder._
 import com.google.caliper.Param
-import org.eichelberger.sfc.ZCurve
+
+import org.eichelberger.sfc.Dimensions._
 import org.eichelberger.sfc.SpaceFillingCurve._
+import org.eichelberger.sfc._
 
 /**
  * benchmarks for counting range queries for various static bounding boxes and resolutions
@@ -13,77 +15,94 @@ class ZCurve2DRangeQueryBenchmark extends CurveBenchmark {
    
   val res = 8 //max res
   val sfc = new ZCurve2D(Math.pow(2,res).toInt)
-  val sfz2D = new ZCurve(OrdinalVector(res,res))
 
+  /* Quadrant range queries */
+  //in (xmin, ymin, xmax, ymax) form
+  val UR = ((0.0, 0.0), (180.0, 90.0))
+  val LL = ((-180.0, -90.0), (0.0, 0.0))
+  val UL = ((-180.0, 0.0), (0.0, 90.0))
+  val LR = ((0.0, -90.0), (180.0, 0.0))
 
   //UR
   def timeZCurve2DQuadrantUR(reps: Int) = run(reps)(ZCurve2DQuadrantUR)
   def ZCurve2DQuadrantUR = {
-          sfc.toRanges(0.0, 0.0, 180.0, 90.0)
+          sfc.toRanges(UR._1._1, UR._1._2, UR._2._1, UR._2._2) //(xmin, ymin, xmax, ymax)
   }
 
   //LL
   def timeZCurve2DQuadrantLL(reps: Int) = run(reps)(ZCurve2DQuadrantLL)
   def ZCurve2DQuadrantLL = {
-          sfc.toRanges(-180.0, -90.0, 0.0, 0.0)
+          sfc.toRanges(LL._1._1, LL._1._2, LL._2._1, LL._2._2) //(xmin, ymin, xmax, ymax)
   }
 
   //UL
   def timeZCurve2DQuadrantUL(reps: Int) = run(reps)(ZCurve2DQuadrantUL)
   def ZCurve2DQuadrantUL = {
-          sfc.toRanges(-180.0, 0.0, 0.0, 90.0)
+          sfc.toRanges(UL._1._1, UL._1._2, UL._2._1, UL._2._2) //(xmin, ymin, xmax, ymax)
   }
 
   //LR
   def timeZCurve2DQuadrantLR(reps: Int) = run(reps)(ZCurve2DQuadrantLR)
   def ZCurve2DQuadrantLR = {
-          sfc.toRanges(0.0, -90.0, 180.0, 0.0)
+          sfc.toRanges(LR._1._1, LR._1._2, LR._2._1, LR._2._2) //(xmin, ymin, xmax, ymax)
   }
 
 
-
-  //queries are a function of resolution
-  val numtiles = (Math.pow(2,res) * Math.pow(2,res)).toInt
-  val center = (Math.pow(2,res)/2).toInt
-  val end = (2 * center) - 1 //0 indexed square grid
-  val URQuery = Query(Seq(
-                 OrdinalRanges(OrdinalPair(center,end)),
-                 OrdinalRanges(OrdinalPair(center,end))))
-
-  val ULQuery = Query(Seq(
-                 OrdinalRanges(OrdinalPair(0,center)),
-                 OrdinalRanges(OrdinalPair(center,end))))
-
-  val LRQuery = Query(Seq(
-                 OrdinalRanges(OrdinalPair(center,end)),
-                 OrdinalRanges(OrdinalPair(0,center))))
-
-  val LLQuery = Query(Seq(
-                 OrdinalRanges(OrdinalPair(0,center)),
-                 OrdinalRanges(OrdinalPair(0,center))))
-
   //sfseize
+  //queries are in (xmin, xmax, ymin, ymax form)
+
+  val x = DefaultDimensions.createLongitude(res)
+  val y = DefaultDimensions.createLatitude(res)
+
+  val sfz2D = new ComposedCurve(
+                    new ZCurve(OrdinalVector(res,res)),
+                    Seq(x, y))
+
+  //UR
+  
+  val URquery = Cell(Seq(
+    DefaultDimensions.createDimension("x", UR._1._1, UR._2._1, 0),
+    DefaultDimensions.createDimension("y", UR._1._2, UR._2._2, 0)
+  ))
+
   def timeZCurve2DQuadrantsfUR(reps: Int) = run(reps)(ZCurve2DQuadrantsfUR)
   def ZCurve2DQuadrantsfUR = {
-          sfz2D.getRangesCoveringQuery(URQuery)
+          sfz2D.getRangesCoveringCell(URquery)
   }
 
   //LL
+
+  val LLquery = Cell(Seq(
+    DefaultDimensions.createDimension("x", LL._1._1, LL._2._1, 0),
+    DefaultDimensions.createDimension("y", LL._1._2, LL._2._2, 0)
+  ))
+
   def timeZCurve2DQuadrantsfLL(reps: Int) = run(reps)(ZCurve2DQuadrantsfLL)
   def ZCurve2DQuadrantsfLL = {
-          sfz2D.getRangesCoveringQuery(LLQuery)
+          sfz2D.getRangesCoveringCell(LLquery)
   }
 
   //UL
+
+  val ULquery = Cell(Seq(
+    DefaultDimensions.createDimension("x", UL._1._1, UL._2._1, 0),
+    DefaultDimensions.createDimension("y", UL._1._2, UL._2._2, 0)
+  ))
+
   def timeZCurve2DQuadrantsfUL(reps: Int) = run(reps)(ZCurve2DQuadrantsfUL)
   def ZCurve2DQuadrantsfUL = {
-          sfz2D.getRangesCoveringQuery(ULQuery)
+          sfz2D.getRangesCoveringCell(ULquery)
   }
 
   //LR
+
+  val LRquery = Cell(Seq(
+    DefaultDimensions.createDimension("x", LR._1._1, LR._2._1, 0),
+    DefaultDimensions.createDimension("y", LR._1._2, LR._2._2, 0)
+  ))
+
   def timeZCurve2DQuadrantsfLR(reps: Int) = run(reps)(ZCurve2DQuadrantsfLR)
   def ZCurve2DQuadrantsfLR = {
-          sfz2D.getRangesCoveringQuery(LRQuery)
+          sfz2D.getRangesCoveringCell(LRquery)
   }
-
 }

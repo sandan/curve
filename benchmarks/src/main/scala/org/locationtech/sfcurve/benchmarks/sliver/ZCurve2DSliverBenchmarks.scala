@@ -1,6 +1,6 @@
 package org.locationtech.sfcurve.benchmarks
 
-import org.locationtech.sfcurve.rowmajor._
+import org.locationtech.sfcurve.zorder._
 import com.google.caliper.Param
 
 import org.eichelberger.sfc._
@@ -10,13 +10,12 @@ import org.eichelberger.sfc.SpaceFillingCurve._
 /**
  * benchmarks for counting range queries for various static bounding boxes and resolutions
  */
-
-object RowMajorCurve2DSliverBenchmark extends BenchmarkRunner(classOf[RowMajorCurve2DSliverBenchmark])
-class RowMajorCurve2DSliverBenchmark extends CurveBenchmark {
-
+object ZCurve2DSliverBenchmark extends BenchmarkRunner(classOf[ZCurve2DSliverBenchmark])
+class ZCurve2DSliverBenchmark extends CurveBenchmark {
+ 
   @Param  
   val res = 1 //max res
-  val sfc = new RowMajorCurve2D(Math.pow(2,res).toInt)
+  val sfc = new ZCurve2D(Math.pow(2,res).toInt)
 
 
   val x = 180
@@ -28,24 +27,24 @@ class RowMajorCurve2DSliverBenchmark extends CurveBenchmark {
      * ~10% of total dim length horizontal, ~80% of total dim length vertical
      */
 //curve 
-    def timeRowMajorCurve2DLL(reps: Int) = run(reps)(RowMajorCurve2DLL)
-    def RowMajorCurve2DLL = {
+    def timeZCurve2DLL(reps: Int) = run(reps)(ZCurve2DLL)
+    def ZCurve2DLL = {
             sfc.toRanges(-x, -v_y/2, -x + v_x  , v_y/2)
     }
   
-    def timeRowMajorCurve2DLR(reps: Int) = run(reps)(RowMajorCurve2DLR)
-    def RowMajorCurve2DLR = {
+    def timeZCurve2DLR(reps: Int) = run(reps)(ZCurve2DLR)
+    def ZCurve2DLR = {
             sfc.toRanges(-x + 90, -v_y/2, -x + 90 + v_x, v_y/2)
     }
   
  
-    def timeRowMajorCurve2DRL(reps: Int) = run(reps)(RowMajorCurve2DRL)
-    def RowMajorCurve2DRL = {
+    def timeZCurve2DRL(reps: Int) = run(reps)(ZCurve2DRL)
+    def ZCurve2DRL = {
             sfc.toRanges(x - 90, -v_y/2, (x - 90) + v_x  , v_y/2)
     }
   
-    def timeRowMajorCurve2DRR(reps: Int) = run(reps)(RowMajorCurve2DRR)
-    def RowMajorCurve2DRR = {
+    def timeZCurve2DRR(reps: Int) = run(reps)(ZCurve2DRR)
+    def ZCurve2DRR = {
             sfc.toRanges(x - v_x, -v_y/2, x, v_y/2)
     }
 
@@ -56,30 +55,30 @@ class RowMajorCurve2DSliverBenchmark extends CurveBenchmark {
      * ~10% of total dim length vertical, ~80% of total dim length horizontal
      */
 
-    def timeRowMajorCurve2DHLL(reps: Int) = run(reps)(RowMajorCurve2DHLL)
-    def RowMajorCurve2DHLL = {
+    def timeZCurve2DHLL(reps: Int) = run(reps)(ZCurve2DHLL)
+    def ZCurve2DHLL = {
             sfc.toRanges(-v_s/2, -y, v_s/2, -y + v_t)
     }
   
-    def timeRowMajorCurve2DHLR(reps: Int) = run(reps)(RowMajorCurve2DHLR)
-    def RowMajorCurve2DHLR = {
+    def timeZCurve2DHLR(reps: Int) = run(reps)(ZCurve2DHLR)
+    def ZCurve2DHLR = {
             sfc.toRanges(-v_s/2, -y + 45, v_s/2, -y + 45 + v_t)
     }
   
  
-    def timeRowMajorCurve2DHRL(reps: Int) = run(reps)(RowMajorCurve2DHRL)
-    def RowMajorCurve2DHRL = {
+    def timeZCurve2DHRL(reps: Int) = run(reps)(ZCurve2DHRL)
+    def ZCurve2DHRL = {
             sfc.toRanges(-v_s/2, y - 45, v_s/2, (y - 45) + v_t)
     }
   
-    def timeRowMajorCurve2DHRR(reps: Int) = run(reps)(RowMajorCurve2DHRR)
-    def RowMajorCurve2DHRR = {
+    def timeZCurve2DHRR(reps: Int) = run(reps)(ZCurve2DHRR)
+    def ZCurve2DHRR = {
             sfc.toRanges(-v_s/2, y - v_t, v_s/2, y)
     }
 
     //sfseize 
     val sf2D = new ComposedCurve(
-                   new RowMajorCurve(OrdinalVector(res,res)),
+                   new ZCurve(OrdinalVector(res,res)),
                    Seq(DefaultDimensions.createLongitude(res), DefaultDimensions.createLatitude(res)))
 
     /** Vertical queries similar to above**/
@@ -104,23 +103,23 @@ class RowMajorCurve2DSliverBenchmark extends CurveBenchmark {
     ))
 
 
-    def timeRowMajorCurve2DSFLL(reps: Int) = run(reps)(RowMajorCurve2DSFLL)
-    def RowMajorCurve2DSFLL = {
+    def timeZCurve2DSFLL(reps: Int) = run(reps)(ZCurve2DSFLL)
+    def ZCurve2DSFLL = {
           sf2D.getRangesCoveringCell(vertQueryLL)
     }
 
-    def timeRowMajorCurve2DSFLR(reps: Int) = run(reps)(RowMajorCurve2DSFLR)
-    def RowMajorCurve2DSFLR = {
+    def timeZCurve2DSFLR(reps: Int) = run(reps)(ZCurve2DSFLR)
+    def ZCurve2DSFLR = {
           sf2D.getRangesCoveringCell(vertQueryLR)
     }
 
-    def timeRowMajorCurve2DSFRL(reps: Int) = run(reps)(RowMajorCurve2DSFRL)
-    def RowMajorCurve2DSFRL = {
+    def timeZCurve2DSFRL(reps: Int) = run(reps)(ZCurve2DSFRL)
+    def ZCurve2DSFRL = {
           sf2D.getRangesCoveringCell(vertQueryRL)
     }
 
-    def timeRowMajorCurve2DSFRR(reps: Int) = run(reps)(RowMajorCurve2DSFRR)
-    def RowMajorCurve2DSFRR = {
+    def timeZCurve2DSFRR(reps: Int) = run(reps)(ZCurve2DSFRR)
+    def ZCurve2DSFRR = {
           sf2D.getRangesCoveringCell(vertQueryRR)
     }
 
@@ -146,23 +145,23 @@ class RowMajorCurve2DSliverBenchmark extends CurveBenchmark {
      DefaultDimensions.createDimension("y", y - v_t, y, 0)
     ))
 
-    def timeRowMajorCurve2DSFHLL(reps: Int) = run(reps)(RowMajorCurve2DSFHLL)
-    def RowMajorCurve2DSFHLL = {
+    def timeZCurve2DSFHLL(reps: Int) = run(reps)(ZCurve2DSFHLL)
+    def ZCurve2DSFHLL = {
           sf2D.getRangesCoveringCell(horizQueryLL)
     }
 
-    def timeRowMajorCurve2DSFHLR(reps: Int) = run(reps)(RowMajorCurve2DSFHLR)
-    def RowMajorCurve2DSFHLR = {
+    def timeZCurve2DSFHLR(reps: Int) = run(reps)(ZCurve2DSFHLR)
+    def ZCurve2DSFHLR = {
           sf2D.getRangesCoveringCell(horizQueryLR)
     }
 
-    def timeRowMajorCurve2DSFHRL(reps: Int) = run(reps)(RowMajorCurve2DSFHRL)
-    def RowMajorCurve2DSFHRL = {
+    def timeZCurve2DSFHRL(reps: Int) = run(reps)(ZCurve2DSFHRL)
+    def ZCurve2DSFHRL = {
           sf2D.getRangesCoveringCell(horizQueryRL)
     }
 
-    def timeRowMajorCurve2DSFHRR(reps: Int) = run(reps)(RowMajorCurve2DSFHRR)
-    def RowMajorCurve2DSFHRR = {
+    def timeZCurve2DSFHRR(reps: Int) = run(reps)(ZCurve2DSFHRR)
+    def ZCurve2DSFHRR = {
           sf2D.getRangesCoveringCell(horizQueryRR)
     }
 }
