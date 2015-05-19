@@ -4,62 +4,62 @@ import org.locationtech.sfcurve.zorder._
 import org.locationtech.sfcurve.rowmajor._
 import org.locationtech.sfcurve.hilbert._
 
-import org.eichelberger.sfc.ZCurve
-import org.eichelberger.sfc.CompactHilbertCurve
-import org.eichelberger.sfc.RowMajorCurve
-import org.eichelberger.sfc.SpaceFillingCurve.{OrdinalVector, SpaceFillingCurve}
+import org.eichelberger.sfc._
+import org.eichelberger.sfc.Dimensions
+import org.eichelberger.sfc.SpaceFillingCurve._
 
 import com.google.caliper.Param
 
+/**
+ *  Benchmark timing creation of curves given a resolution
+ */
 object SFCurveBenchmarks extends BenchmarkRunner(classOf[SFCurveBenchmarks])
 class SFCurveBenchmarks extends CurveBenchmark {
 
-  val resolution = 8
+  @Param
+  val res = 10
 
   //time creation for sfcurves
-
-  def timeZ2DCreate(reps: Int) = run(reps)(z2DCreation)
+  def timeZ2DCreate2(reps: Int) = run(reps)(z2DCreation)
   def z2DCreation = {
-      for (res <- 1 until resolution){
         new ZCurve2D(Math.pow(2,res).toInt)
-      }
   }
 
   def timeHilbert2DCreate(reps: Int) = run(reps)(h2DCreation)
   def h2DCreation = {
-      for (res <- 1 until resolution){
-        new HilbertCurve2D(res)
-      }
+      new HilbertCurve2D(res)
   }
 
   def timeRowMajor2DCreate(reps: Int) = run(reps)(rm2DCreation)
   def rm2DCreation = {
-      for (res <- 1 until resolution){
         new RowMajorCurve2D(Math.pow(2,res).toInt)
-      }
   }
 
   //time creation for sfseize
 
   def timeZ2DSFCreate(reps: Int) = run(reps)(z2DSFCreation)
   def z2DSFCreation = {
-      for (res <- 1 until resolution){
         new ZCurve(OrdinalVector(res,res))
-      }
   }
 
   def timeHilbert2DSFCreate(reps: Int) = run(reps)(h2DSFCreation)
   def h2DSFCreation = {
-      for (res <- 1 until resolution){
         new CompactHilbertCurve(OrdinalVector(res,res))
-      }
   }
 
   def timeRowMajor2DSFCreate(reps: Int) = run(reps)(rm2DSFCreation)
   def rm2DSFCreation = {
-      for (res <- 1 until resolution){
         new RowMajorCurve(OrdinalVector(res,res))
-      }
   }
 
+  def timeRowMajor2DSFComposedCreate(reps: Int) = run(reps)(rm2DSFComposedCreation)
+  def rm2DSFComposedCreation = {
+        new ComposedCurve(
+        new RowMajorCurve(OrdinalVector(res,res)),
+        Seq(
+         DefaultDimensions.createLongitude(res),
+         DefaultDimensions.createLatitude(res)
+        )
+       )
+  }
 }
