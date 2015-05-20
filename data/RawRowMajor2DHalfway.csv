@@ -1,0 +1,8 @@
+benchmark,RowMajorCurve2DH,,res,4,,59.67,ns,,σ,0.58,ns,,,4,trials
+benchmark,RowMajorCurve2DSFH,,res,4,,539.54,ns,,σ,9.85,ns,,,10,trials
+benchmark,RowMajorCurve2DH,,res,8,,59.89,ns,,σ,0.93,ns,,,10,trials
+benchmark,RowMajorCurve2DSFH,,res,8,,546.19,ns,,σ,15.17,ns,,,10,trials
+benchmark,RowMajorCurve2DH,,res,16,,58.94,ns,,σ,0.58,ns,,,6,trials
+benchmark,RowMajorCurve2DSFH,,res,16,,535.9,ns,,σ,3.22,ns,,,3,trials
+benchmark,RowMajorCurve2DH,,res,32,,59.68,ns,,σ,0.32,ns,,,3,trials
+benchmark,RowMajorCurve2DSFH,,res,32,,535.37,ns,,σ,1.64,ns,,,3,trials

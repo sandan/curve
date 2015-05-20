@@ -1,0 +1,8 @@
+ZCurve2DH,res,4,,4208.19,ns,σ,100.56,ns,10,trials
+ZCurve2DSFH,res,4,,530.7,ns,σ,9.4,ns,10,trials
+ZCurve2DH,res,8,,4227.64,ns,σ,38.67,ns,5,trials
+ZCurve2DSFH,res,8,,528.84,ns,σ,2.11,ns,3,trials
+ZCurve2DH,res,16,,4276.26,ns,σ,20.27,ns,3,trials
+ZCurve2DSFH,res,16,,531.36,ns,σ,5.21,ns,7,trials
+ZCurve2DH,res,32,,4150.76,ns,σ,7.19,ns,3,trials
+ZCurve2DSFH,res,32,,520.61,ns,σ,4.98,ns,5,trials
