@@ -16,6 +16,7 @@ import org.joda.time.Days
 object RowMajorCurve3DRangeQueryBenchmark extends BenchmarkRunner(classOf[RowMajorCurve3DRangeQueryBenchmark])
 class RowMajorCurve3DRangeQueryBenchmark extends CurveBenchmark {
    
+  @Param
   val res = 8 //max res
 
   //sfseize
